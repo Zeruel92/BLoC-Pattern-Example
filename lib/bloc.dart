@@ -1,11 +1,12 @@
-import 'package:rxdart/rxdart.dart';
-import 'IP.dart';
-import 'dart:async';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+import 'package:rxdart/rxdart.dart';
+
+import 'IP.dart';
+
 class Bloc {
-  final BehaviorSubject<IPInfo> subject = new BehaviorSubject<IPInfo>();
+  final BehaviorSubject<IPInfo> _subject = new BehaviorSubject<IPInfo>();
 
   Bloc() {
     getIP();
@@ -15,10 +16,13 @@ class Bloc {
     final res = await http.get('http://ipinfo.io/json');
     print(res.body);
     IPInfo info = IPInfo.fromJSON(jsonDecode(res.body));
-    subject.add(info);
+    _subject.add(info);
   }
 
+  Stream<IPInfo> get ipInfo => _subject.stream;
+  void refresh() => getIP();
+
   void dispose() {
-    subject.close();
+    _subject.close();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'IP.dart';
 import 'bloc.dart';
 
@@ -30,7 +31,11 @@ class _MyAppState extends State<MyApp> {
       ),
       body: StreamBuilder(
         builder: _builder,
-        stream: bloc.subject.stream,
+        stream: bloc.ipInfo,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.refresh),
+        onPressed: bloc.refresh,
       ),
     );
   }
@@ -47,7 +52,8 @@ class _MyAppState extends State<MyApp> {
               new Text(snap.data.city),
               new Text(snap.data.region),
               new Text(snap.data.country),
-              new Text(snap.data.postal)
+              new Text(snap.data.postal),
+              new Text(snap.data.org)
             ],
           )
         ],
