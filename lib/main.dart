@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: new Text("Prova Bloc Pattern"),
+        title: new Text("Prova Bloc Pattern con testmagic"),
       ),
       body: StreamBuilder(
         builder: _builder,
